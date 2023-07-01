@@ -10,8 +10,9 @@ const swaggerDocumentations = {
     openapi: "3.0.0",
     info: {
 
-        title : "E Commerce",
-        version: "0.0.1"
+        title : "Hadifox",
+      version: "1.0.0",
+      description: "Node REST API for Hadifox Ecommerce Project, You can see the Frontend Project Here [`Hadifox`](https://collinsadi.github.io/hadifox)"
     },
     components: {
         // authAction: {
@@ -58,6 +59,11 @@ const swaggerDocumentations = {
       {  
         name: "Order",
         description: "Order Routes"
+    }
+    ,
+      {  
+        name: "Inbox",
+        description: "User Inbox"
     }
 
 

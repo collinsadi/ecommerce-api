@@ -18,6 +18,19 @@ const orderSchema = new Schema({
     orderStatus: {
         type: String,
         default: "Pending"
+    },
+    closed: {
+        type: Boolean,
+        default: false
+    },
+    shippingAddress: {
+        type: String
+    },
+    deliveryMethod: {
+        type: String
+    },
+    nearestJunction: {
+        type: String
     }
 
 
