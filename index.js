@@ -7,7 +7,7 @@ const userRoutes = require("./routes/userRoutes")
 const productRoutes = require("./routes/productRoutes")
 const cartRoutes = require("./routes/cartRoutes")
 const orderRoutes = require("./routes/orderRoutes")
-
+const inboxRoutes = require("./routes/inboxRoutes")
 
 const mongoose = require("mongoose")
 const swaggerDocumentations = require('./routes/documentations')
@@ -66,3 +66,4 @@ app.use("/api", userRoutes)
 app.use("/api", productRoutes)
 app.use("/api", cartRoutes)
 app.use("/api", orderRoutes)
+app.use("/api", inboxRoutes)

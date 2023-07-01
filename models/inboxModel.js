@@ -19,6 +19,10 @@ const inboxSchema = new Schema({
 
         type:String
     },
+    seen: {
+        type: Boolean,
+        default: false
+    }
 
 
 }, {timestamps: true})
