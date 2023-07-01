@@ -5,34 +5,6 @@ const newOrder = {
     tags: ["Order"],
     summary:"Create a New Order",
     description: "Api Endpoint for Creating a New  Order",
-      requestBody: {
-
-        content: {
-            "Application/Json":{
-                schema:{
-                    type: "object",
-                    properties:{
-                        products: {
-                            type: "array",
-                            description: "Array of Products to Order",
-                            required: true,
-                            example: [
-                                    {
-                                    "productId": "649f71ec6dffec9f90a076b6",
-                                    "productImage": "string",
-                                    "productName": "string",
-                                    "productPrice": "string",
-                                    "productQuantity": 2,
-                                    "_id": "649f72536dffec9f90a076bf"
-                                    }
-                                ]
-                        }
-                    }
-                }
-            }
-        }
-
-    },
       parameters: [
                 {
                     name: "id",

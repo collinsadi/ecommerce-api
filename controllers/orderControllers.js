@@ -9,9 +9,16 @@ const newOrder = async(request, response)=>{
 
     const userId = request.params.id
 
-    const { products } = request.body
+    
     
     try{
+        
+        
+        const allcarts = await Cart.find({ userId })
+
+        const products = allcarts.flatMap(product=> product.products)
+
+        console.log(products)
 
         if(!products){
 
@@ -25,7 +32,7 @@ const newOrder = async(request, response)=>{
             return
         }
 
-        const productIds = products.map(product=> product.productId)
+        
 
         const neworder = await Order.create({userId,products})
         await neworder.save()
@@ -33,7 +40,9 @@ const newOrder = async(request, response)=>{
 
         const user = await User.findById(userId)
 
-        const cart = await Cart.deleteMany({userId,"products.productId":{$in: productIds}})
+        const cart = await Cart.deleteMany({userId})
+
+        
 
         const date = new Date().toLocaleDateString(undefined,{weekday:"short", month:"short",day:"numeric", year:"numeric"})
 
@@ -256,7 +265,7 @@ const adminOrderStatus = async(request,response)=> {
 
             const date2 = new Date().toLocaleDateString(undefined,{weekday:"short", month:"short",day:"numeric", year:"numeric"})
 
-        const inbox = await Inbox.create({userId:shippedOrder.userId,title:"Order Delivered ", description:"Order Delivered Successfully",body:`${user.first_name}, Your Order width id ${orderId} that was Placed on ${date}, Have Been Delivered SucessFully on ${date2}, You Would Receive More information about Your Order Status on the Open Orders Page, Feel Comfortable and Shop Our Website, Add Your Favorite Items to Cart So You Don't Loose Sight of Them, If any Trouble You Can Reach Out to Us Using the Support Chat, Thanks`})
+        const inbox = await Inbox.create({userId:shippedOrder.userId,title:"Order Delivered ", description:"Order Delivered Successfully",body:`${user.first_name}, Your Order width id ${orderId} that was Placed on ${date}, Have Been Delivered SucessFully on ${date2}, Feel Comfortable and Shop Our Website, Add Your Favorite Items to Cart So You Don't Loose Sight of Them, If any Trouble You Can Reach Out to Us Using the Support Chat, Thanks`})
 
         await inbox.save()
 
