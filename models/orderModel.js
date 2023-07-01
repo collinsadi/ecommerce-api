@@ -1,9 +1,9 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
 
-const cartSchema = new Schema({
+const orderSchema = new Schema({
 
-    userId: {
+     userId: {
         type: String
     },
     products: [
@@ -14,12 +14,16 @@ const cartSchema = new Schema({
             productPrice: String,
             productQuantity: Number
         }
-    ]
+    ],
+    orderStatus: {
+        type: String,
+        default: "Pending"
+    }
 
 
 }, {timestamps: true})
 
 
-const Cart = mongoose.model("cart",cartSchema)
+const Order = mongoose.model("order",orderSchema)
 
-module.exports = Cart
+module.exports = Order

@@ -1,11 +1,12 @@
 const Cart = require("../models/cartModel")
 const User = require("../models/userModel")
+const Product = require("../models/productModel")
 
 const addToCart = async (request, response) => {
 
     const userId = request.params.id
 
-    const {productId,productImage,productName, productPrice} = request.body
+    const {productId} = request.body
 
     try {
 
@@ -14,12 +15,6 @@ const addToCart = async (request, response) => {
         if (!cartOwner) {
             
             response.status(401).json({status:"error", message:"Incorrect Id in Parameter"})
-            return
-        }
-
-        if (!productId || !productImage || !productPrice) {
-
-            response.status(401).json({status:"error", message:"Required Field is Missing"})
             return
         }
 
@@ -50,7 +45,15 @@ const addToCart = async (request, response) => {
             return
         }
 
-        const newProduct = {userId,products:[{ productId, productImage, productName,productPrice, productQuantity: 1 }]}
+        const product = await Product.findById(productId)
+
+        if (!product) {
+            
+            response.status(401).json({status:"error", message:"The Peoduct You are Adding to Cart Was Not Found"})
+            return
+        }
+
+        const newProduct = {userId,products:[{ productId, productImage:product.product_image1, productName: product.product_name,productPrice: product.product_price, productQuantity: 1 }]}
             
         
        
@@ -183,5 +186,40 @@ const changeCartQuantity = async (request, response)=>{
 
 }
 
+const deleteCart = async (request, response) => {
+    
+    const userId = request.params.id
+    const cartId = request.body.cartid 
 
-module.exports = {addToCart, getCart, getCartLength,  changeCartQuantity}
+    try {
+    
+        const cart = await Cart.findById(cartId)
+
+        if(!cart){
+
+            response.status(404).json({status:"error", message:"Cart Not Found"})
+            return
+        }
+
+        if (cart.userId !== userId) {
+            
+            response.status(401).json({status:"error", message:"Unauthorized Request"})
+            return
+        }
+
+        await Cart.findByIdAndDelete(cartId)
+
+        response.status(200).json({status:"Success", message:"Item Deleted Froom Cart"})
+
+
+    } catch (error) {
+        
+        response.status(500).json({status:"error", message:"an Error Occured"})
+        console.log(error)
+    }
+
+
+}
+
+
+module.exports = {addToCart, getCart, getCartLength,  changeCartQuantity, deleteCart}

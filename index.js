@@ -6,6 +6,7 @@ const morgan = require('morgan')
 const userRoutes = require("./routes/userRoutes")
 const productRoutes = require("./routes/productRoutes")
 const cartRoutes = require("./routes/cartRoutes")
+const orderRoutes = require("./routes/orderRoutes")
 
 
 const mongoose = require("mongoose")
@@ -64,3 +65,4 @@ app.use('/docs',swaggerDocs.setup(swaggerDocumentations))
 app.use("/api", userRoutes)
 app.use("/api", productRoutes)
 app.use("/api", cartRoutes)
+app.use("/api", orderRoutes)

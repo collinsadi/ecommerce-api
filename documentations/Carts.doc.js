@@ -16,22 +16,7 @@ const addToCart = {
                             description: "Product Unique Identifier",
                             required: true,
                         },
-                        productImage: {
-                            type: "string",
-                            description: "Product Image"
-                        },
-                        productName: {
-                            type: "string",
-                            description: "Product Description",
-                            required: true,
-                        },
-                        productPrice: {
-                            type: "number",
-                            description: "Product Price",
-                            required: true,
-                        }
-                        
-                    }
+                                     }
                 }
             }
         }
@@ -287,7 +272,100 @@ const changeCartQuantity = {
         
         
     }
+const deleteCart = {
 
+    tags: ["Cart"],
+    summary:"delete product from cart",
+    description: "Api Endpoint for Deleting a Particular Product from the Cart",
+      requestBody: {
+
+        content: {
+            "Application/Json":{
+                schema:{
+                    type: "object",
+                    properties:{
+                        cartid: {
+                            type: "string",
+                            description: "the id of the product to delete",
+                            required: true,
+                        }
+                    }
+                }
+            }
+        }
+
+    },
+      parameters: [
+                {
+                    name: "id",
+                     in: "path",
+                    required:true,
+                    description: "id of the Owner of the Cart",
+                    type:"String",
+                    example: "649e5f13d1bd0ff043b05770"
+                }
+            ],
+    responses: {
+        200:{
+            description: "Sucessful Action",
+            content: {
+                "application/json":{
+                    schema: {
+                        type: "object",
+                        example: {
+                        "status": "Success",
+                        "message": "Item Deleted From Cart"
+                    },
+               
+      
+    
+}
+                    }
+                }
+        },
+        401:{
+            description: "unauthorized",
+            content: {
+                "application/json":{
+                    schema: {
+                        type: "object",
+                        example: {
+                            message: "Unauthorized Request"
+                        }
+                    }
+                }
+            }
+        },
+        404:{
+            description: "Not Found",
+            content: {
+                "application/json":{
+                    schema: {
+                        type: "object",
+                        example: {
+                            message: "Cart Not Found"
+                        }
+                    }
+                }
+            }
+        },
+        500:{
+            description: "Server Side Error",
+            content: {
+                "application/json":{
+                    schema: {
+                        type: "object",
+                        example: {
+                            message: "an Error Occured on the Server Side"
+                        }
+                    }
+                }
+            }
+        }
+        },
+        
+        
+    }
 
 const cartRoute ={
 
@@ -306,6 +384,10 @@ const cartRoute ={
     "/api/change_cart_product_quantity/{id}": {
 
         post: changeCartQuantity
+},
+    "/api/delete_cart_item/{id}": {
+
+        delete: deleteCart
 },
    
 

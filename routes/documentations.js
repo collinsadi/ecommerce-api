@@ -2,6 +2,7 @@
 const userRoute = require('../documentations/Users.doc')
 const productRoute = require('../documentations/Products.doc')
 const cartRoute = require('../documentations/Carts.doc')
+const orderRoute = require('../documentations/Orders.doc')
 
 
 const swaggerDocumentations = {
@@ -53,6 +54,11 @@ const swaggerDocumentations = {
         name: "Cart",
         description: "Carts Routes"
     }
+    ,
+      {  
+        name: "Order",
+        description: "Order Routes"
+    }
 
 
     ],
@@ -60,7 +66,8 @@ const swaggerDocumentations = {
 
         ...userRoute,
         ...productRoute,
-        ...cartRoute
+        ...cartRoute,
+        ...orderRoute
         
     }
 
