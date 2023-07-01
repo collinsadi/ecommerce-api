@@ -301,5 +301,43 @@ const deleteOrder = async (request, response) => {
 
 }
 
+const filterOrder = async (request, response) => {
+    const filter = request.body.filter
 
-module.exports = {newOrder, getOrders, getSingleOrder, updateOrderStatus, getAllOrders,adminOrderStatus, deleteOrder}
+    try{
+
+        if (filter === "confirmed") {
+            
+            const confirmedOrders = await Order.find({orderStatus:"Confirmed"})
+
+            response.status(200).json({status:"Success",confirmedOrders})
+
+            return
+        }
+        if (filter === "shipped") {
+            
+            const shippedOrders = await Order.find({orderStatus:"Shipped"})
+
+            response.status(200).json({status:"Success",shippedOrders})
+
+            return
+        }
+        if (filter === "delivered") {
+            
+            const deliveredOrders = await Order.find({orderStatus:"Delivered"})
+
+            response.status(200).json({status:"Success",deliveredOrders})
+
+            return
+        }
+
+        response.status(422).json({status:"error", message:"Action Not Recognized"})
+
+
+    }catch(error){
+        response.status(500),json({status:"error", message:"an Error Occured"})
+        console.log(error)
+    }
+}
+
+module.exports = {newOrder, getOrders, getSingleOrder, updateOrderStatus, getAllOrders,adminOrderStatus, deleteOrder, filterOrder}

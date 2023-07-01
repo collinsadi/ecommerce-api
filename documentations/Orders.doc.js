@@ -583,6 +583,80 @@ const deleteOrder = {
 
 }
 
+const filterOrders = {
+
+    
+      tags:["Order"],
+      summary: "Super Admin, Filter Orders",
+    description: "Api Endpoint for super admin to filter and find orders",
+     requestBody: {
+
+        content: {
+            "Application/Json":{
+                schema:{
+                    type: "object",
+                    properties:{
+                        filter: {
+                            type: "string",
+                            description: "shipped or delivered or confirmed",
+                            required: true,
+                            example: "confirmed"
+                        }
+                    }
+                }
+            }
+        }
+
+    },
+            responses:{
+                200:{
+                    description: "Sucessful Action",
+                    content: {
+                        "application/json":{
+                            schema: {
+                                type: "object",
+                                example: {
+                                "status": "success",
+                               
+                                
+                            }
+                            }
+                        }
+                    }
+                },
+                422:{
+                    description: "Not Found",
+                    content: {
+                        "application/json":{
+                            schema: {
+                                type: "object",
+                                example: {
+                                    message: "Action not Recognized"
+                                }
+                            }
+                        }
+                    }
+                },
+                500:{
+                    description: "Server Error",
+                    content: {
+                        "application/json":{
+                            schema: {
+                                type: "object",
+                                example: {
+                                    message: "an Error Occured"
+                                }
+                            }
+                        }
+                    }
+                },
+            }
+
+
+
+}
+
+
 
 const orderRoute = {
 
@@ -609,6 +683,10 @@ const orderRoute = {
      "/api/order_delivery_status/{id}": {
 
         post: adminOrderStatus
+},
+     "/api/filter_orders": {
+
+        post: filterOrders
 },
      "/api/delete_order/{id}": {
 

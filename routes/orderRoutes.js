@@ -1,6 +1,6 @@
 const express = require("express")
 const router = express.Router()
-const {newOrder, getOrders, getSingleOrder, updateOrderStatus, getAllOrders, adminOrderStatus, deleteOrder} = require('../controllers/orderControllers')
+const {newOrder, getOrders, getSingleOrder, updateOrderStatus, getAllOrders, adminOrderStatus, deleteOrder, filterOrder} = require('../controllers/orderControllers')
 
 router.post('/new_order/:id',newOrder)
 router.get('/get_order/:id',getOrders)
@@ -9,6 +9,7 @@ router.post('/update_order_status/:id',updateOrderStatus)
 router.get('/get_all_orders',getAllOrders)
 router.post('/order_delivery_status/:id',adminOrderStatus)
 router.delete('/delete_order/:id',deleteOrder)
+router.post('/filter_orders',filterOrder)
 
 
 
