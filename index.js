@@ -62,7 +62,6 @@ app.use('/docs',swaggerDocs.serve)
 app.use('/docs',swaggerDocs.setup(swaggerDocumentations))
 
 
-
 // routes
 app.use("/api", userRoutes)
 app.use("/api", productRoutes)

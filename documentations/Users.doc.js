@@ -274,73 +274,154 @@ const logUsersIn = {
 }
 
 
-// const changePassword = {
-//     tags:["User"],
-//     description: "Api Endpoint to allow Users to Change PassWord",
-//     requestBody:{
-//         content: {
-//             "application/json":{
-//                 schema:{
-//                     type: "object",
-//                     properties: {
-
-//                         oldPassword: {
-//                             type: "string",
-//                             description:"user's previous password"
-//                         },
-//                         password: {
-//                             type: "string",
-//                             description: "new password"
-
-//                         }
-
-//                     }
-//                 }
-//             }
-//         }
-//     },
-//     parameters: [
-//                 {
-//                     name: "id",
-//                     in: "path",
-//                     description: "id of user",
-//                     type:"String",
-//                     example: "546545454548784788"
-//                 }
-//             ],
-//             responses:{
-//                 201:{
-//                     description: "password change sucessful",
-//                     content: {
-//                         "application/json":{
-//                             schema: {
-//                                 type: "object",
-//                                 example: {
-//                                     details: "Password Updated Sucessfully"
-//                                 }
-//                             }
-//                         }
-//                     }
-//                 },
-//                 401:{
-//                     description: "password change was not succesful",
-//                     content: {
-//                         "application/json":{
-//                             schema: {
-//                                 type: "object",
-//                                 example: {
-//                                     details: "Invalid Credentials"
-//                                 }
-//                             }
-//                         }
-//                     }
-//                 }
-//             }
-
-// }
 
 
 
+const forgotPassword = {
+    tags: ["User"],
+    summary:"Forgotten Password",
+    description: "Api Endpoint for resseting Forgotten Passwords",
+    requestBody: {
+
+        content: {
+            "Application/Json":{
+                schema:{
+                    type: "object",
+                    properties:{
+                        email: {
+                            type: "string",
+                            description: "User Email"
+                        }
+                    }
+                }
+            }
+        }
+
+    },
+    responses : {
+        200:{
+
+            description: "Token Sent",
+            content: {
+                "application/json": {
+                    schema: {
+                        type: "object",
+                        example: {
+                             status:"success",
+                            message: "Password Reset Token Sent"
+                        }
+                    }
+                }
+            }
+        },
+        404: {
+            description: "User not Found",
+            content: {
+                "assplication/json": {
+                    schema: {
+                        type: "object",
+                        example: {
+                             status:"error",
+                            message: "Invalid Email"
+                        }
+                    }
+                }
+            }
+        },
+        500: {
+            description: "Server Side Error",
+            content: {
+                "assplication/json": {
+                    schema: {
+                        type: "object",
+                        example: {
+                            status:"error",
+                            message: "an Error Occured on the server side"
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+const resetPassword = {
+    tags: ["User"],
+    summary:"final password reset process",
+    description: "Api Endpoint for Creating a new password for users if Token is valid",
+    requestBody: {
+
+        content: {
+            "Application/Json":{
+                schema:{
+                    type: "object",
+                    properties:{
+                        email: {
+                            type: "string",
+                            description: "User Email"
+                        },
+                        newPassword: {
+                            type: "string",
+                            description: "New password"
+                        },
+                        token: {
+                            type: "string",
+                            description: "password reset Token"
+                        },
+                    }
+                }
+            }
+        }
+
+    },
+    responses : {
+        200:{
+
+            description: "Sucessful Login",
+            content: {
+                "application/json": {
+                    schema: {
+                        type: "object",
+                        example: {
+                             status:"success",
+                            message: "Password Reset Succesfull"
+                        }
+                    }
+                }
+            }
+        },
+        401: {
+            description: "Invalid Credentials",
+            content: {
+                "assplication/json": {
+                    schema: {
+                        type: "object",
+                        example: {
+                             status:"error",
+                            message: "Invalid Credentials"
+                        }
+                    }
+                }
+            }
+        },
+        500: {
+            description: "Server Side Error",
+            content: {
+                "assplication/json": {
+                    schema: {
+                        type: "object",
+                        example: {
+                            status:"error",
+                            message: "an Error Occured on the server side"
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
 
 
 
@@ -359,7 +440,13 @@ const userRoute = {
     },
     "/api/get_user": {
         post: logUsersIn,
-    }
+    },
+    "/api/password/forgotten": {
+        post: forgotPassword,
+    },
+    "/api/password/reset": {
+        post: resetPassword,
+    },
 
 
 }
