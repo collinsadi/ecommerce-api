@@ -38,16 +38,16 @@ const productSchema = new Schema({
         required: true,
         trim: true
     },
+    unique_url: {
+        type: String,
+        required: true,
+        trim: true
+    },
     outOfStock: {
         
         type: Boolean,
         default:false
-    },
-    rating: [
-        {
-            userid: String,
-        }
-    ]
+    }
 
 
 }, {timestamps: true})

@@ -1,6 +1,6 @@
 const express = require("express")
 const router = express.Router()
-const {newProduct,allActiveProducts, allProducts, getSpecificProduct, editProduct, deleteProduct} = require("../controllers/productControllers")
+const {newProduct,allActiveProducts, allProducts, getSpecificProduct, editProduct, deleteProduct, searchProducts, getProductByUniqueUrl} = require("../controllers/productControllers")
 const {checkLogin} = require("../controllers/userControllers")
 
 router.post("/create_product",checkLogin, newProduct)
@@ -14,6 +14,8 @@ router.delete("/delete_product/:id",deleteProduct) /**
  * This is a Super Admin Specific Route and a Super Admin Login Check Would be Made to validate it
  */
 
+router.get("/search",searchProducts)
+router.get("/product/:url",getProductByUniqueUrl)
 
 
 

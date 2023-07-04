@@ -4,6 +4,7 @@ const productRoute = require('../documentations/Products.doc')
 const cartRoute = require('../documentations/Carts.doc')
 const orderRoute = require('../documentations/Orders.doc')
 const inboxRoute = require("../documentations/Inbox.doc")
+const reviewRoute = require("../documentations/Review.doc")
 
 
 const swaggerDocumentations = {
@@ -65,7 +66,15 @@ const swaggerDocumentations = {
       {  
         name: "Inbox",
         description: "User Inbox"
-    }
+    },
+      {  
+        name: "Reviews",
+        description: "Product Reviews"
+    },
+      {  
+        name: "Search",
+        description: "Product Search"
+    },
 
 
     ],
@@ -75,7 +84,8 @@ const swaggerDocumentations = {
         ...productRoute,
         ...cartRoute,
       ...orderRoute,
-      ...inboxRoute
+      ...inboxRoute,
+      ...reviewRoute
         
     }
 

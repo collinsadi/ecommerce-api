@@ -453,6 +453,103 @@ const deleteProduct = {
 
 }
 
+const searchProducts = {
+
+    
+      tags:["Search"],
+      summary: "Search Product",
+    description: "Api Endpoint to Search Products through Categories, Names, and Product Descriptions",
+    parameters: [
+                {
+                    name: "search",
+                     in: "query",
+                    required:true,
+                    description: "search keyword",
+                    type:"String",
+                    example: "String"
+                }
+            ],
+            responses:{
+                200:{
+                    description: "Sucessful Action",
+                    content: {
+                        "application/json":{
+                            schema: {
+                                type: "object",
+                                example: {
+                                    status: "Success",
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+
+
+}
+
+const getProductByUniqueUrl = {
+
+    
+      tags:["Product"],
+      summary: "get Product by unique url",
+    description: "Api Endpoint to get Products by the Uniqe Url that have been created for them",
+    parameters: [
+                {
+                    name: "url",
+                     in: "path",
+                    required:true,
+                    description: "Product Unique Url Key",
+                    type:"String",
+                    example: "red-mini-skirt-for-adults-and-teens-8mLK2CksS"
+                }
+            ],
+            responses:{
+                200:{
+                    description: "Sucessful Action",
+                    content: {
+                        "application/json":{
+                            schema: {
+                                type: "object",
+                                example: {
+                                    status: "Success",
+                                }
+                            }
+                        }
+                    }
+                },
+                404:{
+                    description: "Not Found",
+                    content: {
+                        "application/json":{
+                            schema: {
+                                type: "object",
+                                example: {
+                                    status: "error",
+                                }
+                            }
+                        }
+                    }
+                },
+                500:{
+                    description: "Server Error",
+                    content: {
+                        "application/json":{
+                            schema: {
+                                type: "object",
+                                example: {
+                                    status: "error",
+                                }
+                            }
+                        }
+                    }
+                },
+            }
+
+
+
+}
 
 
 const productRoute = {
@@ -476,11 +573,19 @@ const productRoute = {
      "/api/edit_product/{id}":  {
 
          put: editProduct
+    }, "/api/product/{url}":  {
+
+         get: getProductByUniqueUrl
     },
      "/api/delete_product/{id}":  {
 
          delete: deleteProduct
     },
+     "/api/search":  {
+
+         get: searchProducts
+    },
+    
 }
 
 

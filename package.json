@@ -21,7 +21,9 @@
     "mongoose": "^7.3.1",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.22",
+    "shortid": "^2.2.16",
     "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^4.6.3"
+    "swagger-ui-express": "^4.6.3",
+    "uuid": "^9.0.0"
   }
 }

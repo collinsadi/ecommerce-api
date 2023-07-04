@@ -1,5 +1,5 @@
 const Product = require("../models/productModel")
-
+const shortid = require("shortid")
 
 const newProduct = async (request, response) => {
 
@@ -38,7 +38,15 @@ const newProduct = async (request, response) => {
             return;
         }
 
-        const newProduct = await Product.create({product_image1, product_image2, product_image3, product_name, product_description, product_price, product_category,product_units})
+        let shortcode = shortid.generate()
+        const unique_url = product_name.toLowerCase().split(" ").join("-") + "-" + shortcode
+        const urlexists = await Product.findOne({ unique_url })
+        
+        if (urlexists) {
+            shortcode = shortid.generate()
+        }
+
+        const newProduct = await Product.create({product_image1, product_image2, product_image3, product_name, product_description, product_price, product_category,product_units,unique_url:unique_url.toLowerCase()})
 
         await newProduct.save()
 
@@ -215,6 +223,44 @@ const deleteProduct = async (request, response) => {
 
 }
 
+const searchProducts = async (request, response) => {
+    
+const keyword = request.query.search ? {
+        $or: [
+            { product_category: { $regex: request.query.search , $options: "i" } },
+            { product_description: { $regex: request.query.search , $options: "i" } },
+            { product_name: { $regex: request.query.search , $options: "i" } },
+        ]
+    } : {};
 
+   
+    const products = await Product.find(keyword).find({ outOfStock: { $ne: true } })
+    
+    response.status(200).json({products})
 
-module.exports = {newProduct, allActiveProducts, allProducts,getSpecificProduct,editProduct, deleteProduct}
+}
+
+const getProductByUniqueUrl = async (request, response) => {
+    
+    const unique_url = request.params.url
+
+    try{
+
+        const product = await Product.findOne({unique_url})
+
+        if (!product) {
+            response.status(404).json({status:"error", message:"Product Not Found"})
+            return
+        }
+
+        response.status(200).json({status:"Success", product})
+
+    }catch(error){
+
+        response.status(500).json({status:"error", message:"an Error Occured"})
+        console.log(error)
+    }
+
+}
+
+module.exports = {newProduct, allActiveProducts, allProducts,getSpecificProduct,editProduct, deleteProduct, searchProducts, getProductByUniqueUrl}
