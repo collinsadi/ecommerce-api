@@ -1,12 +1,12 @@
 const express = require("express")
 const router = express.Router()
 const {addToCart,getCart,getCartLength,changeCartQuantity, deleteCart} = require("../controllers/cartControllers")
-
-router.post('/add_to_cart/:id',addToCart)
-router.get('/get_cart/:id',getCart)
-router.get('/get_cart_length/:id',getCartLength)
+const {checkLogin} = require("../controllers/userControllers")
+router.post('/add_to_cart',checkLogin,addToCart)
+router.get('/get_cart' ,checkLogin,getCart)
+router.get('/get_cart_length' ,checkLogin,getCartLength)
 router.post('/change_cart_product_quantity/:id', changeCartQuantity)
-router.delete('/delete_cart_item/:id', deleteCart)
+router.delete('/delete_cart_item',checkLogin, deleteCart)
 
 
 

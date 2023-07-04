@@ -5,16 +5,6 @@ const newOrder = {
     tags: ["Order"],
     summary:"Create a New Order",
     description: "Api Endpoint for Creating a New  Order",
-      parameters: [
-                {
-                    name: "id",
-                     in: "path",
-                    required:true,
-                    description: "id of the Person Making the The Order",
-                    type:"String",
-                    example: "649e5f13d1bd0ff043b05770"
-                }
-            ],
     responses: {
         200:{
             description: "Sucessful Action",
@@ -69,17 +59,6 @@ const getOrders = {
     tags: ["Order"],
     summary:"get User Orders",
     description: "Api Endpoint for getting all Orders for a Particular User",
- 
-      parameters: [
-                {
-                    name: "id",
-                     in: "path",
-                    required:true,
-                    description: "id of the User to get Their Orders",
-                    type:"String",
-                    example: "649dafa0db6f5f73ded2321b"
-                }
-            ],
     responses: {
         200:{
             description: "Sucessful Action",
@@ -173,16 +152,6 @@ const getSingleOrder = {
         }
 
     },
-    parameters: [
-                {
-                    name: "id",
-                     in: "path",
-                    required:true,
-                    description: "id of the owner of the Order",
-                    type:"String",
-                    example: "649e30c3cf847d3d4eb6ebba"
-                }
-            ],
             responses:{
                 200:{
                     description: "Sucessful Action",
@@ -315,16 +284,6 @@ const updateOrderStatus = {
         }
 
     },
-    parameters: [
-                {
-                    name: "id",
-                     in: "path",
-                    required:true,
-                    description: "id of the owner of the Order",
-                    type:"String",
-                    example: "649e30c3cf847d3d4eb6ebba"
-                }
-            ],
             responses:{
                 200:{
                     description: "Sucessful Action",
@@ -660,19 +619,19 @@ const filterOrders = {
 
 const orderRoute = {
 
-     "/api/new_order/{id}": {
+     "/api/new_order": {
 
         post: newOrder
 },
-     "/api/get_order/{id}": {
+     "/api/get_order": {
 
         get: getOrders
 },
-     "/api/get_single_order/{id}": {
+     "/api/get_single_order": {
 
         post: getSingleOrder
 },
-     "/api/update_order_status/{id}": {
+     "/api/update_order_status": {
 
         post: updateOrderStatus
 },

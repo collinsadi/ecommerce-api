@@ -3,10 +3,12 @@ const User = require("../models/userModel")
 const Payment = require("../models/paymentModel")
 const shortid = require("shortid")
 const Inbox = require("../models/inboxModel")
+require("dotenv").config()
 
 const newPayment = async (request, response) => {
     
-const {userId,orderId} = request.body
+    const { orderId } = request.body
+     const userId = request.userid
 
     try{
 
@@ -41,7 +43,7 @@ const {userId,orderId} = request.body
 
     try{
 
-const payStackSecretKey = "sk_test_ccca287216a6486467e4e78d3e62168b952bf601"
+const payStackSecretKey = process.env.PAYSTACK_SECRET
 const url = "https://api.paystack.co/transaction/initialize"
         
         const res = await fetch(url, {
@@ -73,9 +75,10 @@ const url = "https://api.paystack.co/transaction/initialize"
         return;
         }
 
+        response.status(400).json({status:"error", message:`${data.message ? data.message : "Unable to Process Payment"}`})
        
     }catch(error){
-
+        response.status(500).json({status:"error", message:"an Error Occured"})
         console.log("Paystack error", error)
     }
 
@@ -103,7 +106,7 @@ const paymentStatus = async (request, response) => {
 
         const url = "https://api.paystack.co/transaction/verify/"+refrence
 
-        const payStackSecretKey = "sk_test_ccca287216a6486467e4e78d3e62168b952bf601"
+        const payStackSecretKey = process.env.PAYSTACK_SECRET
 
     const res = await fetch(url,{
         method:"get",
@@ -114,8 +117,6 @@ const paymentStatus = async (request, response) => {
     })
 
         const data = await res.json()
-        console.log(data)
-
         if (data.data.status === "success") {
 
             const date = new Date(data.data.paid_at)
@@ -138,6 +139,31 @@ const paymentStatus = async (request, response) => {
             await notification.save()
 
             response.status(200).json({status:"success", message:"Payment Successful"})
+
+            return
+        }
+        if (data.data.status === "failed") {
+
+            const date = new Date(data.data.paid_at)
+            
+            const payment = await Payment.findOne({ refrence })
+            payment.paymentStatus = "failed"
+            await payment.save()
+
+            const user = await User.findById(payment.userId)
+
+            const notification = await Inbox.create({
+                userId:user._id,
+                title: "Payment Failed",
+                description: `Payment for Order ${payment.orderId},Failed`,
+                body:`${user.first_name}, Your Payment Of ${data.data.amount/10} Naira on ${date.toLocaleDateString(undefined,{weekday:"short",month:"short",day:"numeric",year:"numeric"})} , Failed, Please Contact your bank for any dispense error or message support for more info`
+
+                
+            })
+
+            await notification.save()
+
+            response.status(400).json({status:"error", message:"Payment Failed"})
 
             return
         }

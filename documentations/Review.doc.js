@@ -43,16 +43,6 @@ const newReview = {
         }
 
     },
-    parameters: [
-                {
-                    name: "id",
-                     in: "path",
-                    required:true,
-                    description: "id of the Person Making the Review",
-                    type:"String",
-                    example: "649edcf22be4f4dd5888bb55"
-                }
-            ],
             responses:{
                 200:{
                     description: "Sucessful Action",
@@ -171,16 +161,6 @@ const getUserReviews = {
       tags:["Reviews"],
       summary: "get all time user reviews",
     description: "Api Endpoint for getting all Review Made by a Particular User on Different Products",
-    parameters: [
-                {
-                    name: "id",
-                     in: "path",
-                    required:true,
-                    description: "id of the User to get Reviews",
-                    type:"String",
-                    example: "649edcf22be4f4dd5888bb55"
-                }
-            ],
             responses:{
                 200:{
                     description: "Sucessful Action",
@@ -232,7 +212,7 @@ const getUserReviews = {
 
 const reviewRoute = {
 
-    "/api/new_review/{id}": {
+    "/api/new_review": {
 
         post: newReview
 },
@@ -240,7 +220,7 @@ const reviewRoute = {
 
         get: getProductReviews
 },
-    "/api/get_user_reviews/{id}": {
+    "/api/get_user_reviews": {
 
         get: getUserReviews
 },

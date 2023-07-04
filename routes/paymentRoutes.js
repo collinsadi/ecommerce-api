@@ -2,10 +2,10 @@ const express = require("express")
 const router = express.Router()
 
 const {newPayment, paymentStatus} = require("../controllers/paymentControllers")
+const {checkLogin} = require("../controllers/userControllers")
 
-
-router.post("/pay",newPayment)
-router.get("/paid",paymentStatus)
+router.post("/pay",checkLogin,newPayment)
+router.get("/paid",checkLogin,paymentStatus)
 
 
 

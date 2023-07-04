@@ -4,7 +4,8 @@ const Product = require("../models/productModel")
 
 const addToCart = async (request, response) => {
 
-    const userId = request.params.id
+    // const userId = request.params.id
+    const userId = request.userid
 
     const {productId} = request.body
 
@@ -72,8 +73,8 @@ const addToCart = async (request, response) => {
 }
 const getCart = async (request, response) => {
     
-    const userId = request.params.id
-
+     // const userId = request.params.id
+    const userId = request.userid
 
     try {
         
@@ -92,7 +93,8 @@ const getCart = async (request, response) => {
 }
 const getCartLength = async (request, response) => {
     
-    const userId = request.params.id
+    // const userId = request.params.id
+    const userId = request.userid
 
 
     try {
@@ -188,7 +190,8 @@ const changeCartQuantity = async (request, response)=>{
 
 const deleteCart = async (request, response) => {
     
-    const userId = request.params.id
+    // const userId = request.params.id
+    const userId = request.userid
     const cartId = request.body.cartid 
 
     try {

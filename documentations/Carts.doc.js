@@ -22,16 +22,6 @@ const addToCart = {
         }
 
     },
-      parameters: [
-                {
-                    name: "id",
-                     in: "path",
-                    required:true,
-                    description: "id of the User Who Owns the Cart",
-                    type:"String",
-                    example: "649dafa0db6f5f73ded2321b"
-                }
-            ],
     responses: {
         200:{
             description: "Sucessful Action",
@@ -81,17 +71,6 @@ const getCart = {
     tags: ["Cart"],
     summary:"get User Cart",
     description: "Api Endpoint for getting all cart Items for a Particular User",
- 
-      parameters: [
-                {
-                    name: "id",
-                     in: "path",
-                    required:true,
-                    description: "id of the User Who Owns the Cart",
-                    type:"String",
-                    example: "649dafa0db6f5f73ded2321b"
-                }
-            ],
     responses: {
         200:{
             description: "Sucessful Action",
@@ -146,16 +125,6 @@ const getCartLength = {
     tags: ["Cart"],
     summary:"get User Cart Quantity",
     description: "Api Endpoint for the total Number of Items in a Cart",
-      parameters: [
-                {
-                    name: "id",
-                     in: "path",
-                    required:true,
-                    description: "id of the User Who Owns the Cart",
-                    type:"String",
-                    example: "649dafa0db6f5f73ded2321b"
-                }
-            ],
     responses: {
         200:{
             description: "Sucessful Action",
@@ -295,16 +264,6 @@ const deleteCart = {
         }
 
     },
-      parameters: [
-                {
-                    name: "id",
-                     in: "path",
-                    required:true,
-                    description: "id of the Owner of the Cart",
-                    type:"String",
-                    example: "649e5f13d1bd0ff043b05770"
-                }
-            ],
     responses: {
         200:{
             description: "Sucessful Action",
@@ -369,15 +328,15 @@ const deleteCart = {
 
 const cartRoute ={
 
-    "/api/add_to_cart/{id}": {
+    "/api/add_to_cart": {
 
         post: addToCart
 },
-    "/api/get_cart/{id}": {
+    "/api/get_cart": {
 
         get: getCart
 },
-    "/api/get_cart_length/{id}": {
+    "/api/get_cart_length": {
 
         get: getCartLength
 },
@@ -385,7 +344,7 @@ const cartRoute ={
 
         post: changeCartQuantity
 },
-    "/api/delete_cart_item/{id}": {
+    "/api/delete_cart_item": {
 
         delete: deleteCart
 },

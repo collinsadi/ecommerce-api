@@ -4,16 +4,6 @@ const getInbox = {
     tags: ["Inbox"],
     summary:"Get User Messages",
     description: "Api Endpoint for Getting all Messages for a Particular User",
-      parameters: [
-                {
-                    name: "id",
-                     in: "path",
-                    required:true,
-                    description: "id of Users Whos's Messages to get",
-                    type:"String",
-                    example: "649edcf22be4f4dd5888bb55"
-                }
-            ],
     responses: {
         200:{
             description: "Sucessful Action",
@@ -102,16 +92,6 @@ const getSingleMessage = {
         }
 
     },
-    parameters: [
-                {
-                    name: "id",
-                     in: "path",
-                    required:true,
-                    description: "id of Users Whos's Message to get",
-                    type:"String",
-                    example: "649edcf22be4f4dd5888bb55"
-                }
-            ],
     responses: {
         200:{
             description: "Sucessful Action",
@@ -195,13 +175,13 @@ const deleteMessage = {
     tags: ["Inbox"],
     summary:"Delete Single Message",
     description: "Api Endpoint for Deleting a Single Message by Id",
-        requestBody: {
+    requestBody: {
 
         content: {
-            "Application/Json":{
-                schema:{
+            "Application/Json": {
+                schema: {
                     type: "object",
-                    properties:{
+                    properties: {
                         id: {
                             type: "string",
                             description: "id of the message",
@@ -211,19 +191,9 @@ const deleteMessage = {
                     }
                 }
             }
-        }
-
+        },
     },
-    parameters: [
-                {
-                    name: "id",
-                     in: "path",
-                    required:true,
-                    description: "id of User Whos's Message to Delete",
-                    type:"String",
-                    example: "649edcf22be4f4dd5888bb55"
-                }
-            ],
+    
     responses: {
         200:{
             description: "Sucessful Action",
@@ -310,16 +280,6 @@ const changeSeenStatus = {
         }
 
     },
-    parameters: [
-                {
-                    name: "id",
-                     in: "path",
-                    required:true,
-                    description: "id of User Whos's Message to Update Status",
-                    type:"String",
-                    example: "649edcf22be4f4dd5888bb55"
-                }
-            ],
     responses: {
         200:{
             description: "Sucessful Action",
@@ -388,16 +348,6 @@ const markAllAsRead = {
     tags: ["Inbox"],
     summary:"mark all as read",
     description: "Api Endpoint for Making all messages for a user as read",
-    parameters: [
-                {
-                    name: "id",
-                     in: "path",
-                    required:true,
-                    description: "id of User Whos's Messages to mark as read",
-                    type:"String",
-                    example: "649edcf22be4f4dd5888bb55"
-                }
-            ],
     responses: {
         200:{
             description: "Sucessful Action",
@@ -453,16 +403,6 @@ const deleteAllmessages = {
     tags: ["Inbox"],
     summary:"delete all messages",
     description: "Api Endpoint for Deleting all Messages for a user",
-    parameters: [
-                {
-                    name: "id",
-                     in: "path",
-                    required:true,
-                    description: "id of User Whos's Messages to delete",
-                    type:"String",
-                    example: "649edcf22be4f4dd5888bb55"
-                }
-            ],
     responses: {
         200:{
             description: "Sucessful Action",
@@ -518,16 +458,6 @@ const unreadMessageCount = {
     tags: ["Inbox"],
     summary:"unread Messages Count",
     description: "Api Endpoint for Getting the total Numbe of Unread Messages for a Particular User",
-    parameters: [
-                {
-                    name: "id",
-                     in: "path",
-                    required:true,
-                    description: "id of User Whos's Unread Messages to Get",
-                    type:"String",
-                    example: "649edcf22be4f4dd5888bb55"
-                }
-            ],
     responses: {
         200:{
             description: "Sucessful Action",
@@ -581,33 +511,33 @@ const unreadMessageCount = {
 
 const inboxRoute = {
 
-    "/api/user_inbox/{id}": {
+    "/api/user_inbox": {
 
         get: getInbox
 },
-    "/api/inbox/{id}": {
+    "/api/inbox": {
 
         post: getSingleMessage
 },
-    "/api/message_seen_status/{id}": {
+    "/api/message_seen_status": {
 
         post: changeSeenStatus
 },
-    "/api/mark_all_inboxes_as_read/{id}": {
+    "/api/mark_all_inboxes_as_read": {
 
         post: markAllAsRead
 },
 
-    "/api/delete_all_messages/{id}": {
+    "/api/delete_all_messages": {
 
         post: deleteAllmessages
 },
 
-    "/api/get_unread_messages_count/{id}": {
+    "/api/get_unread_messages_count": {
 
        get: unreadMessageCount
 },
-    "/api/delete_message/{id}": {
+    "/api/delete_message": {
 
         delete: deleteMessage
 },

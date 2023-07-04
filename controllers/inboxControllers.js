@@ -2,7 +2,8 @@ const Inbox = require("../models/inboxModel")
 
 const getInbox = async (request, response) => {
 
-    const userId = request.params.id
+    // const userId = request.params.id
+    const userId = request.userid
 
     try{
 
@@ -27,7 +28,8 @@ const getInbox = async (request, response) => {
 
 const getSingleMessage = async (request, response) => {
     
-    const userId = request.params.id
+     // const userId = request.params.id
+    const userId = request.userid
     const messageId = request.body.id
 
     try {
@@ -56,7 +58,8 @@ const getSingleMessage = async (request, response) => {
 }
 
 const deleteMessage = async (request, response) => {
-    const userId = request.params.id
+     // const userId = request.params.id
+    const userId = request.userid
     const messageId = request.body.id
 
     try{
@@ -83,7 +86,8 @@ const deleteMessage = async (request, response) => {
 }
 
 const changeSeenStatus = async (request, response) => {
-    const userId = request.params.id
+    // const userId = request.params.id
+    const userId = request.userid
     const messageId = request.body.id
 
     try {
@@ -113,7 +117,8 @@ const changeSeenStatus = async (request, response) => {
 }
 
 const markAllAsRead = async (request, response) => {
-    const userId = request.params.id
+     // const userId = request.params.id
+    const userId = request.userid
     
 
     try{
@@ -132,7 +137,8 @@ const markAllAsRead = async (request, response) => {
 
 const deleteAllmessages = async (request, response) => {
     
-    const userId = request.params.id
+    // const userId = request.params.id
+    const userId = request.userid
 
     try{
 
@@ -156,7 +162,8 @@ const deleteAllmessages = async (request, response) => {
 }
 
 const unreadMessageCount = async (request, response) => {
-    const userId = request.params.id
+     // const userId = request.params.id
+    const userId = request.userid
 
     try{
 

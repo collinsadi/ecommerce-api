@@ -5,6 +5,7 @@ const cartRoute = require('../documentations/Carts.doc')
 const orderRoute = require('../documentations/Orders.doc')
 const inboxRoute = require("../documentations/Inbox.doc")
 const reviewRoute = require("../documentations/Review.doc")
+const paymentRoutes = require("../documentations/Payments.doc")
 
 
 const swaggerDocumentations = {
@@ -64,6 +65,11 @@ const swaggerDocumentations = {
     }
     ,
       {  
+        name: "Payment",
+        description: "Payment Creation, Processing and Confirmation"
+    }
+    ,
+      {  
         name: "Inbox",
         description: "User Inbox"
     },
@@ -84,6 +90,7 @@ const swaggerDocumentations = {
         ...productRoute,
         ...cartRoute,
       ...orderRoute,
+      ...paymentRoutes,
       ...inboxRoute,
       ...reviewRoute
         

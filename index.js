@@ -15,11 +15,11 @@ const mongoose = require("mongoose")
 const swaggerDocumentations = require('./routes/documentations')
 const cookieParser = require("cookie-parser")
 const swaggerDocs = require('swagger-ui-express')
+require("dotenv").config()
 
 
 
-
-const url = "mongodb://127.0.0.1:27017/ecommerce"
+const url = process.env.MONGO_URI
 
 
 mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true})

@@ -7,7 +7,8 @@ const User = require("../models/userModel")
 
 const newOrder = async(request, response)=>{
 
-    const userId = request.params.id
+    // const userId = request.params.id
+    const userId = request.userid
 
     
     
@@ -61,7 +62,9 @@ const newOrder = async(request, response)=>{
 
 const getOrders = async (request, response) => {
 
-    const userId = request.params.id
+    // const userId = request.params.id
+    const userId = request.userid
+
 
     try {
         
@@ -86,7 +89,9 @@ const getOrders = async (request, response) => {
 
 const getSingleOrder = async (request, response) => {
     
-    const userId = request.params.id
+   // const userId = request.params.id
+    const userId = request.userid
+
     const {orderId} = request.body
 
     try {
@@ -118,7 +123,8 @@ const getSingleOrder = async (request, response) => {
 
 const updateOrderStatus = async (request, response) => {
     
-    const userId = request.params.id
+   // const userId = request.params.id
+    const userId = request.userid
 
     const { action, shippingAddress, deliveryMethod, nearestJunction,orderId } = request.body
     

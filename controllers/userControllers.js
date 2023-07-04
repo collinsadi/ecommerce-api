@@ -1,7 +1,10 @@
 const jwt = require("jsonwebtoken")
 const bcrypt = require("bcrypt")
 const User = require("../models/userModel")
-const jwtsecret = "secretcollinscommerce2004"
+require('dotenv').config()
+
+
+const jwtsecret = process.env.JWT_SECRET
 
 const registerUser = async (request, response) => {
     
@@ -83,6 +86,11 @@ const loginUser = async (request, response) => {
 
         }
 
+        if (email.indexOf("@") === -1) {
+            response.status(422).json({status:"error", message:"enter a valid email"})
+            return
+        }
+
         const user = await User.findOne({ email })
         
         if (!user) {
@@ -100,7 +108,7 @@ const loginUser = async (request, response) => {
 
         }
 
-        const token =  jwt.sign({userId: user._id}, jwtsecret)
+        const token =  jwt.sign({user: user}, jwtsecret)
 
         response.cookie("token", token, { httpOnly: true })
         
@@ -128,8 +136,10 @@ const checkLogin = async (request, response, next) => {
 
     try{
 
-     const decoded =  jwt.verify(cookie, jwtsecret)
-    console.log(decoded.userId)
+        const decoded = jwt.verify(cookie, jwtsecret)
+        request.userid = decoded.user._id
+
+    console.log(decoded.user)
     next()
 
     } catch(error){

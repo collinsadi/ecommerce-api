@@ -5,7 +5,8 @@ const Reviews = require("../models/reviewModel")
 
 const newReview = async (request, response) => {
 
-    const userId = request.params.id
+    // const userId = request.params.id
+    const userId = request.userid
 
     const { productId, title, description, star } = request.body
     
@@ -89,7 +90,8 @@ const getProductReviews = async (request, response) => {
  
 const getUserReviews = async (request, response) => {
     
-    const userId = request.params.id
+   // const userId = request.params.id
+    const userId = request.userid
 
 
     try{
